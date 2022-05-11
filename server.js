@@ -34,7 +34,7 @@ app.get("*", (req, res) => {
 });
 
 app.post("/api/notes", (req, res) => {
-  console.info(`${req.method} request received to add a review`);
+  console.info(`${req.method} request received to add a note`);
   console.log(req.body);
   const { title, text } = req.body;
   if(title && text){
@@ -42,7 +42,23 @@ app.post("/api/notes", (req, res) => {
           title,
           text
       }
-      fs.readFile('')
+      fs.readFile('./db/db.json', 'utf8', (err, data) =>{
+          if (err){
+              console.error(err);
+          }else{
+              const parsedNotes = JSON.parse(data);
+              parsedNotes.push(newNote)
+
+              fs.writeFile(
+                './db/db.json',
+                JSON.stringify(parsedNotes, null, 4),
+                (writeErr) =>
+                  writeErr
+                    ? console.error(writeErr)
+                    : console.info('Successfully updated notes!')
+              );
+          }
+      })
   }
 });
 
