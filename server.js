@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const savedNotes = require("./db/db.json");
 const { dirname } = require("path");
+const uuidv1 = require("uuid/v1");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,7 +38,9 @@ app.post("/api/notes", (req, res) => {
     const newNote = {
       title,
       text,
+      id: uuidv1(),
     };
+    
 
     fs.readFile("./db/db.json", "utf8", (err, data) => {
       if (err) {
@@ -57,7 +60,7 @@ app.post("/api/notes", (req, res) => {
       }
     });
   }
-  res.json("request complete")
+  res.json("request complete");
 });
 
 app.listen(PORT, () =>
