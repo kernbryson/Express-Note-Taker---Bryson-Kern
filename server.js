@@ -29,7 +29,7 @@ app.get("/api/notes", (req, res) => {
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
-
+//grabs note data and restructures it into an object
 app.post("/api/notes", (req, res) => {
   console.info(`${req.method} request received to add a note`);
   console.log(req.body);
@@ -41,7 +41,7 @@ app.post("/api/notes", (req, res) => {
       id: uuidv1(),
     };
     
-
+//saves note to database
     fs.readFile("./db/db.json", "utf8", (err, data) => {
       if (err) {
         console.error(err);
