@@ -40,8 +40,8 @@ app.post("/api/notes", (req, res) => {
       text,
       id: uuidv1(),
     };
-    
-//saves note to database
+
+    //saves note to database
     fs.readFile("./db/db.json", "utf8", (err, data) => {
       if (err) {
         console.error(err);
@@ -62,6 +62,7 @@ app.post("/api/notes", (req, res) => {
   }
   res.json("request complete");
 });
+
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
